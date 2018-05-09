@@ -19,7 +19,7 @@ class VatcodeCodicefiscaleSettings extends Settings
      *
      * @ORM\Column(type="string", length=20, nullable=false)
      */
-    protected $akType;
+    protected $akType = '';
 
     /**
      * Get the type of the attribute (one of the Checked::TYPE_... constants, or an empty string for any).
