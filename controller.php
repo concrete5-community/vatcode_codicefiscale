@@ -1,8 +1,7 @@
 <?php
 namespace Concrete\Package\VatcodeCodicefiscale;
 
-use Concrete\Core\Attribute\Category\CategoryService;
-use Concrete\Core\Attribute\TypeFactory;
+use Concrete\Core\Asset\AssetList;
 use Concrete\Core\Package\Package;
 
 /**
@@ -22,7 +21,7 @@ class Controller extends Package
      *
      * @var string
      */
-    protected $pkgVersion = '1.0.0';
+    protected $pkgVersion = '0.9.0';
 
     /**
      * The minimum concrete5 version.
@@ -30,6 +29,13 @@ class Controller extends Package
      * @var string
      */
     protected $appVersionRequired = '8.2.0';
+
+    /**
+     * {@inheritdoc}
+     */
+    protected $pkgAutoloaderRegistries = [
+        'src' => 'VatcodeCodicefiscale',
+    ];
 
     /**
      * {@inheritdoc}
@@ -50,28 +56,37 @@ class Controller extends Package
     /**
      * {@inheritdoc}
      */
-    public function testForInstall($testForAlreadyInstalled = true)
+    public function install()
     {
-        $result = parent::testForInstall($testForAlreadyInstalled);
+        parent::install();
+        $this->installContentFile('config/install.xml');
+    }
+
+    public function on_start()
+    {
+        if (!$this->app->isRunThroughCommandLineInterface()) {
+            $this->registerAssets();
+        }
     }
 
     /**
-     * {@inheritdoc}
+     * Register the assets.
      */
-    public function install()
+    private function registerAssets()
     {
-        $package = parent::install();
-        $typeFactory = $this->app->make(TypeFactory::class);
-        /* @var TypeFactory $typeFactory */
-        $type = $typeFactory->getByHandle('vatcode_codicefiscale');
-        if ($type === null) {
-            $type = $typeFactory->add('vatcode_codicefiscale', tc('AttributeKeyName', 'VAT Code or Codice Fiscale'), $package);
-            $categoryService = $this->app->make(CategoryService::class);
-            /* @var CategoryService $categoryService */
-            $category = $categoryService->getByHandle('user');
-            if ($category !== null) {
-                $category->getController()->associateAttributeKeyType($type);
-            }
-        }
+        $al = AssetList::getInstance();
+        $al->registerMultiple([
+            'vatcode_codicefiscale/jqplugin' => [
+                ['javascript', 'js/vatcode_codicefiscale.jquery.js', ['minify' => true, 'combine' => true, 'version' => $this->pkgVersion], $this],
+            ],
+        ]);
+        $al->registerGroupMultiple([
+            'vatcode_codicefiscale/jqplugin' => [
+                [
+                    ['javascript', 'jquery'],
+                    ['javascript', 'vatcode_codicefiscale/jqplugin'],
+                ],
+            ],
+        ]);
     }
 }

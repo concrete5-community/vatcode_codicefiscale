@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:xlink="http://www.w3.org/1999/xlink"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="97"
+   height="97"
+   viewBox="0 0 25.664583 25.664584"
+   version="1.1"
+   id="svg3719"
+   inkscape:version="0.92.3 (2405546, 2018-03-11)"
+   sodipodi:docname="icon.svg">
+  <defs
+     id="defs3713">
+    <linearGradient
+       inkscape:collect="always"
+       id="linearGradient4577">
+      <stop
+         style="stop-color:#009247;stop-opacity:1;"
+         offset="0"
+         id="stop4573" />
+      <stop
+         id="stop4581"
+         offset="0.48349342"
+         style="stop-color:#009247;stop-opacity:0.52884614" />
+      <stop
+         style="stop-color:#51e4e9;stop-opacity:0.52941179"
+         offset="0.49640304"
+         id="stop4583" />
+      <stop
+         style="stop-color:#51e4e9;stop-opacity:1"
+         offset="1"
+         id="stop4575" />
+    </linearGradient>
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient4577"
+       id="linearGradient4579"
+       x1="12.440984"
+       y1="296.99997"
+       x2="12.440984"
+       y2="271.34045"
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="matrix(0.99874132,0,0,1.0007118,0.01615121,-0.22728055)" />
+  </defs>
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="2.8923223"
+     inkscape:cx="-9.5743486"
+     inkscape:cy="152.26505"
+     inkscape:document-units="px"
+     inkscape:current-layer="layer1"
+     showgrid="false"
+     units="px"
+     inkscape:window-width="1920"
+     inkscape:window-height="1137"
+     inkscape:window-x="-8"
+     inkscape:window-y="-8"
+     inkscape:window-maximized="1"
+     inkscape:snap-text-baseline="true" />
+  <metadata
+     id="metadata3716">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Livello 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(0,-271.3354)">
+    <rect
+       style="fill:url(#linearGradient4579);fill-opacity:1;stroke:#27ff90;stroke-width:0.29305252;stroke-opacity:0.59808613"
+       id="rect4571"
+       width="25.371531"
+       x="0.14652626"
+       y="271.48193"
+       ry="2.053401"
+       height="25.371531"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:10.58333397px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458335"
+       x="3.0628619"
+       y="281.71216"
+       id="text4587"><tspan
+         sodipodi:role="line"
+         id="tspan4585"
+         x="3.0628619"
+         y="281.71216"
+         style="stroke-width:0.26458335">VAT</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:10.58333397px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458335"
+       x="6.0988522"
+       y="294.38159"
+       id="text4591"><tspan
+         sodipodi:role="line"
+         id="tspan4589"
+         x="6.0988522"
+         y="294.38159"
+         style="stroke-width:0.26458335">CF</tspan></text>
+  </g>
+</svg>

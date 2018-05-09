@@ -1,21 +1,30 @@
 <?php
-namespace Concrete\Package\VatcodeCodicefiscale;
+
+namespace VatcodeCodicefiscale;
+
+defined('C5_EXECUTE') or die('Access Denied.');
 
 class Checker
 {
     /**
      * Value type: VAT code.
      *
-     * @var int
+     * @var string
      */
-    const TYPE_VATCODE = 1;
+    const TYPE_VATCODE = 'vatCode';
 
     /**
      * Value type: codice fiscale.
      *
-     * @var int
+     * @var string
      */
-    const TYPE_CODICEFISCALE = 2;
+    const TYPE_CODICEFISCALE = 'codiceFiscale';
+
+    /**
+     * Mapping between Codice Fiscale chars and their values to be used for checksum validation.
+     *
+     * @var array
+     */
     private static $MAP_CODICEFISCALE = [
         '0' => 1, '1' => 0, '2' => 5, '3' => 7, '4' => 9, '5' => 13, '6' => 15, '7' => 17, '8' => 19, '9' => 21,
         'A' => 1, 'B' => 0, 'C' => 5, 'D' => 7, 'E' => 9, 'F' => 13, 'G' => 15, 'H' => 17, 'I' => 19, 'J' => 21,
@@ -28,7 +37,7 @@ class Checker
      *
      * @param string|mixed $value
      *
-     * @return string
+     * @return string returns an empty string if $value is not valid
      */
     public function normalize($value)
     {
@@ -49,7 +58,7 @@ class Checker
      *
      * @param string $value The value to be checked (it should be normalized with Checker::normalize)
      *
-     * @return int|null
+     * @return string One of the TYPE_... constants, or an empty string.
      */
     public function getType($value)
     {
@@ -58,7 +67,7 @@ class Checker
         } elseif ($this->isCodiceFiscale($value)) {
             $result = static::TYPE_CODICEFISCALE;
         } else {
-            $result = null;
+            $result = '';
         }
 
         return $result;
@@ -76,19 +85,19 @@ class Checker
         $result = false;
         if (is_string($value) && preg_match('/^[0-9]{11}$/', $value)) {
             $sum = 0;
-            for($i = 0; $i <= 9; $i += 2) {
+            for ($i = 0; $i <= 9; $i += 2) {
                 $sum += (int) $value[$i];
             }
-            for($i = 1; $i <= 9; $i += 2) {
+            for ($i = 1; $i <= 9; $i += 2) {
                 $c = 2 * (int) $value[$i];
-                if($c > 9) {
+                if ($c > 9) {
                     $c -= 9;
                 }
                 $sum += $c;
             }
             $checkCode = (10 - ($sum % 10)) % 10;
             if ($checkCode === (int) $value[10]) {
-                return true;
+                $result = true;
             }
         }
 
@@ -107,30 +116,21 @@ class Checker
         $result = false;
         if (is_string($value) && preg_match('/^[A-Z]{6}[A-Z0-9]{2}[A-Z]{1}[A-Z0-9]{2}[A-Z]{1}[A-Z0-9]{3}[A-Z]{1}$/', $value)) {
             $sum = 0;
-            for($i = 1; $i <= 13; $i += 2) {
+            for ($i = 1; $i <= 13; $i += 2) {
                 $char = $value[$i];
-                if($char >= '0' && $char <= '9') {
+                if ($char >= '0' && $char <= '9') {
                     $sum += (int) $char;
-                }
-                else {
+                } else {
                     $sum += ord($char) - ord('A');
                 }
             }
-            for($i = 0; $i <= 14; $i += 2) {
+            for ($i = 0; $i <= 14; $i += 2) {
                 $char = $value[$i];
-                if (!isset(static::$MAP_CODICEFISCALE[$char])) {
-                    $sum = null;
-                    break;
-                }
-                else {
-                    $sum += static::$MAP_CODICEFISCALE[$char];
-                }
+                $sum += static::$MAP_CODICEFISCALE[$char];
             }
-            if($sum !== null) {
-                $checkChar = chr($sum % 26 + ord('A'));
-                if ($value[15] === $checkChar) {
-                    $result = true;
-                }
+            $checkChar = chr($sum % 26 + ord('A'));
+            if ($value[15] === $checkChar) {
+                $result = true;
             }
         }
 
