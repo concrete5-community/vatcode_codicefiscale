@@ -1,3 +1,2 @@
 /composer.lock
-/languages/messages.pot
-/languages/**/messages.po
+/languages/
