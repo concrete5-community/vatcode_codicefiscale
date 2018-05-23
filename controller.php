@@ -4,6 +4,8 @@ namespace Concrete\Package\VatcodeCodicefiscale;
 use Concrete\Core\Asset\AssetList;
 use Concrete\Core\Package\Package;
 
+defined('C5_EXECUTE') or die('Access Denied.');
+
 /**
  * The VatcodeCodicefiscale package controller.
  */
@@ -21,7 +23,7 @@ class Controller extends Package
      *
      * @var string
      */
-    protected $pkgVersion = '0.9.0';
+    protected $pkgVersion = '0.9.1';
 
     /**
      * The minimum concrete5 version.
