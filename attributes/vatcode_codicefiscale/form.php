@@ -18,7 +18,6 @@ echo $form->text(
 <script>
 $(document).ready(function() {
     var $i = $('input[data-vatcode-codicefiscale-type]');
-    debugger;
     $i.vatcodeCodicefiscale({
         onCheck: function ($input, rc) {
             var $parent = $input.closest('.control-group');
