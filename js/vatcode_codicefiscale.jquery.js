@@ -114,7 +114,7 @@ $.fn.vatcodeCodicefiscale = function(what) {
                 originalValue = $this.val(),
                 normalizedValue = normalize(originalValue);
             if (originalValue !== normalizedValue) {
-                $this.val(normalizedValue);
+                $this.val(normalizedValue).trigger('change');
             }
         });
     }
@@ -136,7 +136,7 @@ $.fn.vatcodeCodicefiscale = function(what) {
                 var originalValue = $this.val(),
                     normalizedValue = normalize(originalValue);
                 if (originalValue !== normalizedValue) {
-                    $this.val(normalizedValue);
+                    $this.val(normalizedValue).trigger('change');
                 }
             });
         }
