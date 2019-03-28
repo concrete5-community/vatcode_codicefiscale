@@ -194,6 +194,22 @@ try {
 } catch (e) {
     $.fn.vatcodeCodicefiscale.TYPE_CODICEFISCALE = TYPE.CODICEFISCALE;
 }
+try {
+    Object.defineProperty($.fn.vatcodeCodicefiscale, 'normalize', {
+        value: normalize,
+        writable: false
+    });
+} catch (e) {
+    $.fn.vatcodeCodicefiscale.normalize = normalize;
+}
+try {
+    Object.defineProperty($.fn.vatcodeCodicefiscale, 'getType', {
+        value: getType,
+        writable: false
+    });
+} catch (e) {
+    $.fn.vatcodeCodicefiscale.getType = getType;
+}
 
 $.fn.vatcodeCodicefiscale.defaults = {
     /* Can be empty (any type), or $.fn.vatcodeCodicefiscale.TYPE_VATCODE ('vatCode'), or $.fn.vatcodeCodicefiscale.CODICEFISCALE ('codiceFiscale') */
