@@ -108,15 +108,27 @@ function isCodiceFiscale(value)
 }
 
 $.fn.vatcodeCodicefiscale = function(what) {
-    if (what === 'normalize') {
-        return this.each(function() {
-            var $this = $(this),
-                originalValue = $this.val(),
-                normalizedValue = normalize(originalValue);
-            if (originalValue !== normalizedValue) {
-                $this.val(normalizedValue).trigger('change');
-            }
-        });
+    if (typeof what === 'string') {
+        switch (what.toLowerCase()) {
+            case 'normalize':
+                return this.each(function() {
+                    var $this = $(this),
+                        originalValue = $this.val(),
+                        normalizedValue = normalize(originalValue);
+                    if (originalValue !== normalizedValue) {
+                        $this.val(normalizedValue).trigger('change');
+                    }
+                });
+            case 'gettype':
+                var typeResult = null;
+                this.each(function() {
+                    typeResult = getType($(this).val());
+                    return false;
+                });
+                return typeResult;
+            default:
+                throw new Error('Unrecognized vatcode_codicefiscale method: ' + what);
+        }
     }
     var options = $.extend($.fn.vatcodeCodicefiscale.defaults, what || {});
     if (!('type' in options) || (options.type !== TYPE.VATCODE && options.type !== TYPE.CODICEFISCALE)) {
