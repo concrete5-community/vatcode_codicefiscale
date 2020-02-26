@@ -10,10 +10,10 @@
 			"role" : "author"
 		}
 	],
-	"homepage" : "https://github.com/mlocati/concrete5_vatcode_codicefiscale",
+	"homepage" : "https://github.com/concrete5-community/vatcode_codicefiscale",
 	"support" : {
-		"issues" : "https://github.com/mlocati/concrete5_vatcode_codicefiscale/issues",
-		"source" : "https://github.com/mlocati/concrete5_vatcode_codicefiscale"
+		"issues" : "https://github.com/concrete5-community/vatcode_codicefiscale/issues",
+		"source" : "https://github.com/concrete5-community/vatcode_codicefiscale"
 	},
 	"keywords" : [
 		"concrete5",
