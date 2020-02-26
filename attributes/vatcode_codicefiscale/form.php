@@ -5,6 +5,7 @@ defined('C5_EXECUTE') or die('Access Denied.');
 /* @var Concrete\Core\Form\Service\Form $form */
 /* @var Concrete\Core\Attribute\View $view */
 /* @var string $type */
+/* @var bool $allowInvalidValues */
 /* @var string $value */
 
 echo $form->text(
@@ -12,6 +13,7 @@ echo $form->text(
     $value,
     [
         'data-vatcode-codicefiscale-type' => $type,
+        'data-vatcode-codicefiscale-allow-invalid-values' => $allowInvalidValues ? 'yes' : 'no',
     ]
 );
 ?>

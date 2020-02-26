@@ -12,6 +12,9 @@ use VatcodeCodicefiscale\Checker;
 
 defined('C5_EXECUTE') or die('Access Denied.');
 
+/**
+ * @method \Concrete\Package\VatcodeCodicefiscale\Entity\Attribute\Key\Settings\VatcodeCodicefiscaleSettings getAttributeKeySettings()
+ */
 class Controller extends DefaultController
 {
     /**
@@ -56,6 +59,7 @@ class Controller extends DefaultController
     {
         $settings = $this->getAttributeKeySettings();
         $this->set('type', $settings->getType());
+        $this->set('allowInvalidValues', $settings->isAllowInvalidValues());
     }
 
     /**
@@ -67,11 +71,13 @@ class Controller extends DefaultController
     {
         $data = (is_array($data) ? $data : []) + [
             'type' => '',
+            'allowInvalidValues' => false,
         ];
-        $settings = $this->getAttributeKeySettings();
-        $settings->setType($data['type']);
 
-        return $settings;
+        return $this->getAttributeKeySettings()
+            ->setType($data['type'])
+            ->setAllowInvalidValues($data['allowInvalidValues'])
+        ;
     }
 
     /**
@@ -87,6 +93,7 @@ class Controller extends DefaultController
         $valueObject = $this->getAttributeValue();
         $value = $valueObject ? (string) $valueObject->getValue() : '';
         $this->set('type', $settings->getType());
+        $this->set('allowInvalidValues', $settings->isAllowInvalidValues());
         $this->set('value', $value);
     }
 
@@ -107,22 +114,24 @@ class Controller extends DefaultController
         if ($value !== '') {
             $valueType = $checker->getType($value);
             $settings = $this->getAttributeKeySettings();
-            switch ($settings->getType()) {
-                case Checker::TYPE_VATCODE:
-                    if ($valueType !== Checker::TYPE_VATCODE) {
-                        throw new UserMessageException(t('The specified value is not a valid VAT code.'));
-                    }
-                    break;
-                case Checker::TYPE_CODICEFISCALE:
-                    if ($valueType !== Checker::TYPE_CODICEFISCALE) {
-                        throw new UserMessageException(t('The specified value is not a valid codice fiscale.'));
-                    }
-                    break;
-                default:
-                    if ($valueType === '') {
-                        throw new UserMessageException(t('The specified value is neither a valid VAT code nor a valid codice fiscale.'));
-                    }
-                    break;
+            if ($settings->isAllowInvalidValues() === false) {
+                switch ($settings->getType()) {
+                    case Checker::TYPE_VATCODE:
+                        if ($valueType !== Checker::TYPE_VATCODE) {
+                            throw new UserMessageException(t('The specified value is not a valid VAT code.'));
+                        }
+                        break;
+                    case Checker::TYPE_CODICEFISCALE:
+                        if ($valueType !== Checker::TYPE_CODICEFISCALE) {
+                            throw new UserMessageException(t('The specified value is not a valid codice fiscale.'));
+                        }
+                        break;
+                    default:
+                        if ($valueType === '') {
+                            throw new UserMessageException(t('The specified value is neither a valid VAT code nor a valid codice fiscale.'));
+                        }
+                        break;
+                }
             }
         }
 
@@ -142,6 +151,7 @@ class Controller extends DefaultController
         $settings = $this->getAttributeKeySettings();
         $type = $akey->addChild('type');
         $type->addAttribute('type', $settings->getType());
+        $type->addAttribute('allow-invalid-values', $settings->isAllowInvalidValues() ? '1' : '0');
 
         return $akey;
     }
@@ -158,6 +168,7 @@ class Controller extends DefaultController
             if (isset($akey->type['type'])) {
                 $settings->setType((string) $akey->type['type']);
             }
+            $settings->setAllowInvalidValues(isset($akey->type['allow-invalid-values']) && !empty((string) $akey->type['allow-invalid-values']));
         }
 
         return $settings;

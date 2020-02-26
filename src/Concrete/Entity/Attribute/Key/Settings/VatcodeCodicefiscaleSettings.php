@@ -3,23 +3,31 @@
 namespace Concrete\Package\VatcodeCodicefiscale\Entity\Attribute\Key\Settings;
 
 use Concrete\Core\Entity\Attribute\Key\Settings\Settings;
-use Doctrine\ORM\Mapping as ORM;
 use VatcodeCodicefiscale\Checker;
 
 defined('C5_EXECUTE') or die('Access Denied.');
 
 /**
- * @ORM\Entity
- * @ORM\Table(name="atVatcodeCodicefiscaleSettings")
+ * @\Doctrine\ORM\Mapping\Entity
+ * @\Doctrine\ORM\Mapping\Table(name="atVatcodeCodicefiscaleSettings")
  */
 class VatcodeCodicefiscaleSettings extends Settings
 {
     /**
      * The type of the field.
      *
-     * @ORM\Column(type="string", length=20, nullable=false)
+     * @\Doctrine\ORM\Mapping\Column(type="string", length=20, nullable=false)
      */
     protected $akType = '';
+
+    /**
+     * Allow invalid values?
+     *
+     * @\Doctrine\ORM\Mapping\Column(type="boolean", nullable=true)
+     *
+     * @var bool
+     */
+    protected $allowInvalidValues = false;
 
     /**
      * Get the type of the attribute (one of the Checked::TYPE_... constants, or an empty string for any).
@@ -35,6 +43,8 @@ class VatcodeCodicefiscaleSettings extends Settings
      * Set the type of the attribute (one of the Checked::TYPE_... constants) or NULL for any.
      *
      * @param int|null $value
+     *
+     * @return $this
      */
     public function setType($value)
     {
@@ -49,5 +59,31 @@ class VatcodeCodicefiscaleSettings extends Settings
             }
         }
         $this->akType = $akType;
+
+        return $this;
+    }
+
+    /**
+     * Allow invalid values?
+     *
+     * @return bool
+     */
+    public function isAllowInvalidValues()
+    {
+        return (bool) $this->allowInvalidValues;
+    }
+
+    /**
+     * Allow invalid values?
+     *
+     * @param bool $value
+     *
+     * @return $this
+     */
+    public function setAllowInvalidValues($value)
+    {
+        $this->allowInvalidValues = (bool) $value;
+
+        return $this;
     }
 }

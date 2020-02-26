@@ -134,6 +134,7 @@ $.fn.vatcodeCodicefiscale = function(what) {
     if (!('type' in options) || (options.type !== TYPE.VATCODE && options.type !== TYPE.CODICEFISCALE)) {
         options.type = '';
     }
+    options.allowInvalidValues = (('allowInvalidValues' in options) &&  options.allowInvalidValues) ? true : false;
     return this.each(function() {
         var $this = $(this);
         if ($this.data('vatcodeCodicefiscale')) {
@@ -143,6 +144,15 @@ $.fn.vatcodeCodicefiscale = function(what) {
         if (type !== '' && type !== TYPE.VATCODE && type !== TYPE.CODICEFISCALE) {
             $this.data('vatcode-codicefiscale-type', options.type);
         }
+        var allowInvalidValues = $this.data('vatcode-codicefiscale-allow-invalid-values');
+        if ([false, 0, '0', 'off', 'no'].indexOf(allowInvalidValues) >= 0) {
+        	allowInvalidValues = false;
+        } else if ([true, 1, '1', 'on', 'yes'].indexOf(allowInvalidValues) >= 0) {
+        	allowInvalidValues = true;
+        } else {
+        	allowInvalidValues = options.allowInvalidValues;
+        }
+        $this.data('vatcode-codicefiscale-allow-invalid-values', allowInvalidValues);
         if (options.normalizeOn) {
             $this.on(options.normalizeOn, function() {
                 var originalValue = $this.val(),
@@ -214,6 +224,7 @@ try {
 $.fn.vatcodeCodicefiscale.defaults = {
     /* Can be empty (any type), or $.fn.vatcodeCodicefiscale.TYPE_VATCODE ('vatCode'), or $.fn.vatcodeCodicefiscale.CODICEFISCALE ('codiceFiscale') */
     type: '',
+    allowInvalidValues: false,
     normalizeOn: 'blur change',
     checkOn: 'blur keydown keypress keyup change click',
     onCheck: null

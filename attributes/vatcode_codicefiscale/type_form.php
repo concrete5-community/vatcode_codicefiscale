@@ -4,8 +4,11 @@ use VatcodeCodicefiscale\Checker;
 
 defined('C5_EXECUTE') or die('Access Denied.');
 
-/* @var Concrete\Core\Form\Service\Form $form */
-/* @var string $type */
+/**
+ * @var Concrete\Core\Form\Service\Form $form
+ * @var string $type
+ * @var bool $allowInvalidValues
+ */
 
 ?>
 <fieldset>
@@ -22,4 +25,16 @@ defined('C5_EXECUTE') or die('Access Denied.');
             $type
 	    ) ?>
 	</div>
+    <div class="form-group">
+        <div class="checkbox">
+            <label class="checkbox">
+                <?= $form->checkbox(
+                    'allowInvalidValues',
+                    '1',
+                    $allowInvalidValues
+                ) ?>
+                <?= t('Accept invalid values') ?>
+            </label>
+        </div>
+    </div>
 </fieldset>
