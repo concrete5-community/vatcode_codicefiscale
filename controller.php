@@ -1,4 +1,5 @@
 <?php
+
 namespace Concrete\Package\VatcodeCodicefiscale;
 
 use Concrete\Core\Asset\AssetList;
@@ -26,14 +27,16 @@ class Controller extends Package
     protected $pkgVersion = '0.9.2';
 
     /**
-     * The minimum concrete5 version.
+     * {@inheritdoc}
      *
-     * @var string
+     * @see \Concrete\Core\Package\Package::$appVersionRequired
      */
     protected $appVersionRequired = '8.2.0';
 
     /**
      * {@inheritdoc}
+     *
+     * @see \Concrete\Core\Package\Package::$pkgAutoloaderRegistries
      */
     protected $pkgAutoloaderRegistries = [
         'src' => 'VatcodeCodicefiscale',
@@ -41,6 +44,8 @@ class Controller extends Package
 
     /**
      * {@inheritdoc}
+     *
+     * @see \Concrete\Core\Package\Package::getPackageName()
      */
     public function getPackageName()
     {
@@ -49,6 +54,8 @@ class Controller extends Package
 
     /**
      * {@inheritdoc}
+     *
+     * @see \Concrete\Core\Package\Package::getPackageDescription()
      */
     public function getPackageDescription()
     {
@@ -57,6 +64,8 @@ class Controller extends Package
 
     /**
      * {@inheritdoc}
+     *
+     * @see \Concrete\Core\Package\Package::install()
      */
     public function install()
     {
