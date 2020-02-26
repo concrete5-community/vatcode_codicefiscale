@@ -24,7 +24,7 @@ class Controller extends Package
      *
      * @var string
      */
-    protected $pkgVersion = '0.9.2';
+    protected $pkgVersion = '1.1.0';
 
     /**
      * {@inheritdoc}
