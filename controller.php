@@ -31,7 +31,7 @@ class Controller extends Package
      *
      * @see \Concrete\Core\Package\Package::$appVersionRequired
      */
-    protected $appVersionRequired = '8.2.0';
+    protected $appVersionRequired = '8.5.2';
 
     /**
      * {@inheritdoc}
