@@ -1,27 +1,37 @@
 {
-	"name" : "mlocati-concrete5-packages/vatcode_codicefiscale",
-	"description" : "concrete5 package for adding Italian VAT code or Codice Fiscale attributes",
-	"type" : "concrete5-package",
-	"license" : "MIT",
-	"authors" : [{
-			"name" : "Michele Locati",
-			"email" : "michele@locati.it",
-			"homepage" : "https://mlocati.github.io",
-			"role" : "author"
-		}
-	],
-	"homepage" : "https://github.com/concrete5-community/vatcode_codicefiscale",
-	"support" : {
-		"issues" : "https://github.com/concrete5-community/vatcode_codicefiscale/issues",
-		"source" : "https://github.com/concrete5-community/vatcode_codicefiscale"
-	},
-	"keywords" : [
-		"concrete5",
-		"package",
-		"Italy",
-		"Italian",
-		"VAT code",
-		"Partita IVA",
-		"Codice Fiscale"
-	]
+    "name": "concrete5-community/vatcode_codicefiscale",
+    "description": "ConcreteCMS/concrete5 package for adding Italian VAT code or Codice Fiscale attributes",
+    "type": "concrete5-package",
+    "keywords": [
+        "concrete",
+        "concrete5",
+        "cms",
+        "concretecms",
+        "addon",
+        "package",
+        "italy",
+        "italian",
+        "vat code",
+        "vat number",
+        "partita iva",
+        "codice fiscale",
+        "fiscal code"
+    ],
+    "homepage": "https://github.com/concrete5-community/vatcode_codicefiscale",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Michele Locati",
+            "email": "michele@locati.it",
+          "homepage": "https://mlocati.github.io",
+            "role": "author"
+        }
+    ],
+    "support": {
+        "issues": "https://github.com/concrete5-community/vatcode_codicefiscale/issues",
+        "source": "https://github.com/concrete5-community/vatcode_codicefiscale"
+    },
+    "require": {
+        "concrete5/core": "^8.5.2 || ^9"
+    }
 }
