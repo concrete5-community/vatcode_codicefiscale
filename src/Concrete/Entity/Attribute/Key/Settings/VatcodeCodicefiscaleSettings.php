@@ -17,6 +17,8 @@ class VatcodeCodicefiscaleSettings extends Settings
      * The type of the field.
      *
      * @\Doctrine\ORM\Mapping\Column(type="string", length=20, nullable=false)
+     *
+     * @var string
      */
     protected $akType = '';
 
@@ -76,13 +78,17 @@ class VatcodeCodicefiscaleSettings extends Settings
     /**
      * Allow invalid values?
      *
-     * @param bool $value
+     * @param bool|string|mixed $value
      *
      * @return $this
      */
     public function setAllowInvalidValues($value)
     {
-        $this->allowInvalidValues = (bool) $value;
+        if (is_string($value)) {
+            $this->allowInvalidValues = filter_var($value, FILTER_VALIDATE_BOOLEAN);
+        } else {
+            $this->allowInvalidValues = (bool) $value;
+        }
 
         return $this;
     }

@@ -16,15 +16,15 @@ defined('C5_EXECUTE') or die('Access Denied.');
     <div class="form-group">
         <?= $form->label('type', t('Value type')) ?>
         <?= $form->select(
-	        'type',
-	        [
+            'type',
+            [
                 '' => t('VAT Code or Codice Fiscale'),
-	            Checker::TYPE_VATCODE => t('VAT Code'),
-	            Checker::TYPE_CODICEFISCALE => t('Codice Fiscale'),
-	        ],
+                Checker::TYPE_VATCODE => t('VAT Code'),
+                Checker::TYPE_CODICEFISCALE => t('Codice Fiscale'),
+            ],
             $type
-	    ) ?>
-	</div>
+        ) ?>
+    </div>
     <div class="form-group">
         <div class="checkbox">
             <label class="checkbox">

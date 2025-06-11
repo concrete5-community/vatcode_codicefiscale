@@ -41,13 +41,12 @@ class Checker
      */
     public function normalize($value)
     {
-        if (is_string($value)) {
-            $result = preg_replace('/\s+/', '', $value);
-            if (preg_match('/^[\x20-\x7f]+$/', $result)) {
-                $result = strtoupper($result);
-            }
-        } else {
-            $result = '';
+        if (!is_string($value)) {
+            return '';
+        }
+        $result = preg_replace('/\s+/', '', $value);
+        if (preg_match('/^[\x20-\x7f]+$/', $result)) {
+            $result = strtoupper($result);
         }
 
         return $result;
@@ -56,84 +55,80 @@ class Checker
     /**
      * Get the type of a value.
      *
-     * @param string $value The value to be checked (it should be normalized with Checker::normalize)
+     * @param string $value|mixed The value to be checked (it should be normalized with Checker::normalize)
      *
      * @return string One of the TYPE_... constants, or an empty string.
      */
     public function getType($value)
     {
         if ($this->isVatCode($value)) {
-            $result = static::TYPE_VATCODE;
-        } elseif ($this->isCodiceFiscale($value)) {
-            $result = static::TYPE_CODICEFISCALE;
-        } else {
-            $result = '';
+            return static::TYPE_VATCODE;
+        }
+        if ($this->isCodiceFiscale($value)) {
+            return static::TYPE_CODICEFISCALE;
         }
 
-        return $result;
+        return '';
     }
 
     /**
      * Check if a value contains a valid VAT code string.
      *
-     * @param string $value The value to be checked (it should be normalized with Checker::normalize)
+     * @param string|mixed $value The value to be checked (it should be normalized with Checker::normalize)
      *
      * @return bool
      */
     public function isVatCode($value)
     {
-        $result = false;
-        if (is_string($value) && preg_match('/^[0-9]{11}$/', $value)) {
-            $sum = 0;
-            for ($i = 0; $i <= 9; $i += 2) {
-                $sum += (int) $value[$i];
-            }
-            for ($i = 1; $i <= 9; $i += 2) {
-                $c = 2 * (int) $value[$i];
-                if ($c > 9) {
-                    $c -= 9;
-                }
-                $sum += $c;
-            }
-            $checkCode = (10 - ($sum % 10)) % 10;
-            if ($checkCode === (int) $value[10]) {
-                $result = true;
-            }
+        if (!is_string($value) || !preg_match('/^(IT)?[0-9]{11}$/', $value)) {
+            return false;
         }
+        if (strpos($value, 'IT') === 0) {
+            $value = substr($value, 2);
+        }
+        $sum = 0;
+        for ($i = 0; $i <= 9; $i += 2) {
+            $sum += (int) $value[$i];
+        }
+        for ($i = 1; $i <= 9; $i += 2) {
+            $c = 2 * (int) $value[$i];
+            if ($c > 9) {
+                $c -= 9;
+            }
+            $sum += $c;
+        }
+        $checkCode = (10 - ($sum % 10)) % 10;
 
-        return $result;
+        return $checkCode === (int) $value[10];
     }
 
     /**
      * Check if a value contains a valid codice fiscale string.
      *
-     * @param string $value The value to be checked (it should be normalized with Checker::normalize)
+     * @param string|mixed $value The value to be checked (it should be normalized with Checker::normalize)
      *
      * @return bool
      */
     public function isCodiceFiscale($value)
     {
-        $result = false;
-        if (is_string($value) && preg_match('/^[A-Z]{6}[A-Z0-9]{2}[A-Z]{1}[A-Z0-9]{2}[A-Z]{1}[A-Z0-9]{3}[A-Z]{1}$/', $value)) {
-            $sum = 0;
-            for ($i = 1; $i <= 13; $i += 2) {
-                $char = $value[$i];
-                if ($char >= '0' && $char <= '9') {
-                    $sum += (int) $char;
-                } else {
-                    $sum += ord($char) - ord('A');
-                }
-            }
-            for ($i = 0; $i <= 14; $i += 2) {
-                $char = $value[$i];
-                $sum += static::$MAP_CODICEFISCALE[$char];
-            }
-            $checkChar = chr($sum % 26 + ord('A'));
-            if ($value[15] === $checkChar) {
-                $result = true;
+        if (!is_string($value) && !preg_match('/^[A-Z]{6}[A-Z0-9]{2}[A-Z]{1}[A-Z0-9]{2}[A-Z]{1}[A-Z0-9]{3}[A-Z]{1}$/', $value)) {
+            return false;
+        }
+        $sum = 0;
+        for ($i = 1; $i <= 13; $i += 2) {
+            $char = $value[$i];
+            if ($char >= '0' && $char <= '9') {
+                $sum += (int) $char;
+            } else {
+                $sum += ord($char) - ord('A');
             }
         }
+        for ($i = 0; $i <= 14; $i += 2) {
+            $char = $value[$i];
+            $sum += static::$MAP_CODICEFISCALE[$char];
+        }
+        $checkChar = chr($sum % 26 + ord('A'));
 
-        return $result;
+        return $value[15] === $checkChar;
     }
 }
