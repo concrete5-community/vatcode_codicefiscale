@@ -7,9 +7,6 @@ use Concrete\Core\Package\Package;
 
 defined('C5_EXECUTE') or die('Access Denied.');
 
-/**
- * The VatcodeCodicefiscale package controller.
- */
 class Controller extends Package
 {
     /**
@@ -87,15 +84,21 @@ class Controller extends Package
     {
         $al = AssetList::getInstance();
         $al->registerMultiple([
-            'vatcode_codicefiscale/jqplugin' => [
-                ['javascript', 'js/vatcode_codicefiscale.jquery.js', ['minify' => true, 'combine' => true, 'version' => $this->pkgVersion], $this],
+            'vatcode_codicefiscale' => [
+                ['javascript', 'js/vatcode_codicefiscale.js', ['minify' => true, 'combine' => true, 'version' => $this->pkgVersion], $this],
             ],
         ]);
         $al->registerGroupMultiple([
+            'vatcode_codicefiscale' => [
+                [
+                    ['javascript', 'jquery'],
+                    ['javascript', 'vatcode_codicefiscale'],
+                ],
+            ],
             'vatcode_codicefiscale/jqplugin' => [
                 [
                     ['javascript', 'jquery'],
-                    ['javascript', 'vatcode_codicefiscale/jqplugin'],
+                    ['javascript', 'vatcode_codicefiscale'],
                 ],
             ],
         ]);

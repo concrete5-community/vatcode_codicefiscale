@@ -87,7 +87,7 @@ class Controller extends DefaultController
      */
     public function form()
     {
-        $this->requireAsset('vatcode_codicefiscale/jqplugin');
+        $this->requireAsset('vatcode_codicefiscale');
         $settings = $this->getAttributeKeySettings();
 
         $valueObject = $this->getAttributeValue();
@@ -112,9 +112,9 @@ class Controller extends DefaultController
         $checker = $this->app->make(Checker::class);
         $value = $checker->normalize($value);
         if ($value !== '') {
-            $valueType = $checker->getType($value);
             $settings = $this->getAttributeKeySettings();
             if ($settings->isAllowInvalidValues() === false) {
+                $valueType = $checker->getType($value);
                 switch ($settings->getType()) {
                     case Checker::TYPE_VATCODE:
                         if ($valueType !== Checker::TYPE_VATCODE) {
@@ -168,7 +168,9 @@ class Controller extends DefaultController
             if (isset($akey->type['type'])) {
                 $settings->setType((string) $akey->type['type']);
             }
-            $settings->setAllowInvalidValues(isset($akey->type['allow-invalid-values']) && !empty((string) $akey->type['allow-invalid-values']));
+            if (isset($akey->type['allow-invalid-values'])) {
+                $settings->setAllowInvalidValues(filter_var((string) $akey->type['allow-invalid-values'], FILTER_VALIDATE_BOOLEAN));
+            }
         }
 
         return $settings;

@@ -1,10 +1,10 @@
 <?xml version="1.0"?>
 <concrete5-cif version="1.0">
-	<attributetypes>
-		<attributetype package="vatcode_codicefiscale" handle="vatcode_codicefiscale" name="VAT Code or Codice Fiscale">
-			<categories>
-				<category handle="user" />
-			</categories>
-		</attributetype>
-	</attributetypes>
+    <attributetypes>
+        <attributetype package="vatcode_codicefiscale" handle="vatcode_codicefiscale" name="VAT Code or Codice Fiscale">
+            <categories>
+                <category handle="user" />
+            </categories>
+        </attributetype>
+    </attributetypes>
 </concrete5-cif>
