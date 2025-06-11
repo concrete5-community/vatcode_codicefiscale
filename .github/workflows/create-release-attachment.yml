@@ -9,6 +9,8 @@ jobs:
   attach-zip:
     name: Attach ZIP to release
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
     steps:
       -
         name: Setup PHP
@@ -28,4 +30,3 @@ jobs:
         with:
           remove-files: |
             composer.json
-            composer.lock
