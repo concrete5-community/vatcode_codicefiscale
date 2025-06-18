@@ -3,11 +3,13 @@
 namespace Concrete\Package\VatcodeCodicefiscale;
 
 use Concrete\Core\Asset\AssetList;
+use Concrete\Core\Database\EntityManager\Provider\ProviderAggregateInterface;
+use Concrete\Core\Database\EntityManager\Provider\StandardPackageProvider;
 use Concrete\Core\Package\Package;
 
 defined('C5_EXECUTE') or die('Access Denied.');
 
-class Controller extends Package
+class Controller extends Package implements ProviderAggregateInterface
 {
     /**
      * The package handle.
@@ -68,6 +70,18 @@ class Controller extends Package
     {
         parent::install();
         $this->installContentFile('config/install.xml');
+    }
+
+    /**
+     * {@inheritdoc}
+     *
+     * @see \Concrete\Core\Database\EntityManager\Provider\ProviderAggregateInterface::getEntityManagerProvider()
+     */
+    public function getEntityManagerProvider()
+    {
+        return new StandardPackageProvider($this->app, $this, [
+            'src/Concrete/Entity' => 'Concrete\\Package\\VatcodeCodicefiscale\\Entity',
+        ]);
     }
 
     public function on_start()
